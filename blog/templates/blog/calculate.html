@@ -1,0 +1,17 @@
+<html>
+
+<head>
+    <title>Calculate</title>
+</head>
+
+<body>
+    {% if error %}
+    <h1>{{ error }}</h1>
+    {% else %}
+    <h1>Результаты вычислений:</h1>
+    <p>Сумма чисел {{ a }} и {{ b }}: {{ addition }}</p>
+    <p>Число {{ a }} в степени {{ b }}: {{ power }}</p>
+    {% endif %}
+</body>
+
+</html>

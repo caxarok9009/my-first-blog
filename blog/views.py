@@ -45,3 +45,40 @@ def post_edit(request, pk):
     else:
         form = PostForm(instance=post)
     return render(request, "blog/post_edit.html", {"form": form})
+
+
+def calculate(request):
+    a = request.GET.get("a")
+    b = request.GET.get("b")
+
+    if a is not None and b is not None and a.isdigit() and b.isdigit():
+        a, b = int(a), int(b)
+        addition = a + b
+        power = a**b
+        context = {"a": a, "b": b, "addition": addition, "power": power, "error": None}
+    else:
+        context = {"error": "Ошибка: Параметры a и b должны быть целыми числами."}
+
+    return render(request, "blog/calculate.html", context)
+
+
+def matrix(request):
+    if request.method == "POST":
+        x = request.POST.get("x")
+        y = request.POST.get("y")
+
+        if x and y and x.isdigit() and y.isdigit():
+            x, y = int(x), int(y)
+            if x > 0 and y > 0:
+                matrix = [[f"{i} + {j}" for j in range(y)] for i in range(x)]
+                return render(
+                    request, "blog/matrix.html", {"matrix": matrix, "x": x, "y": y}
+                )
+
+        return render(
+            request,
+            "blog/matrix.html",
+            {"error": "Ошибка: x и y должны быть положительными целыми числами."},
+        )
+
+    return render(request, "blog/matrix.html")
